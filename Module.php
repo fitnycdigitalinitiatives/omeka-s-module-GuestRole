@@ -4,7 +4,7 @@ namespace GuestRole;
 
 use Omeka\Module\AbstractModule;
 use Omeka\Module\Manager as ModuleManager;
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\MvcEvent;
 
 class Module extends AbstractModule
 {
