@@ -33,12 +33,16 @@ class Module extends AbstractModule
         $acl = $services->get('Omeka\Acl');
         if (!$acl->hasRole(self::ROLE_GUEST)) {
             $acl->addRole(self::ROLE_GUEST);
-            $acl->addRoleLabel(self::ROLE_GUEST, 'Guest'); // @translate
-
-            // This is allowed for everyone by default, but guest users should
-            // never have access to admin
-            $acl->deny(self::ROLE_GUEST, 'Omeka\Controller\SiteAdmin\Index');
-            $acl->deny(self::ROLE_GUEST, 'Omeka\Controller\SiteAdmin\Page');
         }
+
+        $roleLabels = $acl->getRoleLabels();
+        if (!array_key_exists(self::ROLE_GUEST, $roleLabels)) {
+            $acl->addRoleLabel(self::ROLE_GUEST, 'Guest'); // @translate
+        }
+
+        // This is allowed for everyone by default, but guest users should
+        // never have access to admin
+        $acl->deny(self::ROLE_GUEST, 'Omeka\Controller\SiteAdmin\Index');
+        $acl->deny(self::ROLE_GUEST, 'Omeka\Controller\SiteAdmin\Page');
     }
 }
