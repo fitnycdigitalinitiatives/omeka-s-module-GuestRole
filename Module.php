@@ -5,6 +5,7 @@ namespace GuestRole;
 use Omeka\Module\AbstractModule;
 use Omeka\Module\Manager as ModuleManager;
 use Laminas\Mvc\MvcEvent;
+use Omeka\Permissions\Assertion\IsSelfAssertion;
 
 class Module extends AbstractModule
 {
