@@ -39,6 +39,18 @@ class Module extends AbstractModule
         if (!array_key_exists(self::ROLE_GUEST, $roleLabels)) {
             $acl->addRoleLabel(self::ROLE_GUEST, 'Guest'); // @translate
         }
+        // Allow guest to make to read itself (for use with Groups Module)
+        $acl->allow(
+            [self::ROLE_GUEST],
+            [\Omeka\Entity\User::class],
+            ['read'],
+            new IsSelfAssertion
+        );
+        $acl->allow(
+            [self::ROLE_GUEST],
+            [\Omeka\Api\Adapter\UserAdapter::class],
+            ['read']
+        );
 
         // This is allowed for everyone by default, but guest users should
         // never have access to admin
